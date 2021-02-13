@@ -1,0 +1,1037 @@
+﻿<Window x:Class="UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:UI" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="1000">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Button.xaml" >
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.8*"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.1*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock FontSize="30" FontWeight="Bold" Foreground="#FF1D613C"  >Music Shop</TextBlock>
+        <DockPanel Grid.Column="1" LastChildFill="False" >
+            <Button DockPanel.Dock="Right" Margin="5,5,0,5" Command="{Binding ExitCommand}">Log out</Button>
+            <Button DockPanel.Dock="Right" Margin="5" Command="{Binding LoginRegistrationShowCommand}">Log in</Button>
+            <Button x:Name="clearSelected" DockPanel.Dock="Right" Margin="5" >
+                <materialDesign:PackIcon Kind="SelectionOff"  Height="25" Width="25" />
+            </Button>
+        </DockPanel>
+        <!--_________________________________________________LEFT_________________________________________-->
+        <TabControl Grid.Row="1"
+  Style="{StaticResource MaterialDesignNavigatilRailTabControl}"
+  materialDesign:ColorZoneAssist.Mode="PrimaryMid">
+
+            <!--_________________________________________________ADD_________________________________________-->
+            <TabItem>
+
+                <TabItem.Style>
+                    <Style BasedOn="{StaticResource MaterialDesignNavigationRailTabItem}" TargetType="TabItem">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CurrentAccount.IsClient}" Value="True">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding CurrentAccount.IsClient}" Value="False">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding CurrentAccount.IsClient}" Value="False">
+                                <Setter Property="IsSelected" Value="True"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TabItem.Style>
+
+                <TabItem.Header>
+                    <materialDesign:PackIcon
+        Kind="PlusOutline"
+        Width="30"
+        Height="30" />
+                </TabItem.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.3*"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+
+                    <Grid.RowDefinitions>
+                        <RowDefinition ></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+
+                    </Grid.RowDefinitions>
+                    <TextBlock FontSize="25" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="4" TextDecorations="{x:Null}">ADD</TextBlock>
+
+                    <!--_____________________________________________Artist______________________________________________________-->
+                    <TextBlock Grid.Row="1" FontSize="21" VerticalAlignment="Bottom" Margin="0,10,2,10" HorizontalAlignment="Right">Artist:</TextBlock>
+                    <TextBox  MaxHeight="50" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"  Margin="5,10" VerticalAlignment="Bottom"
+                             Background="WhiteSmoke" FontSize="18" Text="{Binding Artist.Name}"></TextBox>
+                    <Button Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="4" HorizontalAlignment="Center" MinWidth="200" Command="{Binding AddArtistCommand}">Add</Button>
+
+                    <!--______________________________________________Genre_________________________________________________________-->
+                    <TextBlock Grid.Row="3" FontSize="21" VerticalAlignment="Bottom" Margin="0,10,2,10" HorizontalAlignment="Right">Genre:</TextBlock>
+                    <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,10" MaxHeight="50"
+                              Background="WhiteSmoke" VerticalAlignment="Bottom" FontSize="18" Text="{Binding Genre.Name}"></TextBox>
+                    <Button Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="4" HorizontalAlignment="Center" MinWidth="200" Command="{Binding AddGenreCommand}">Add</Button>
+
+
+
+                    <!--_____________________________________________Publisher_________________________________________________________-->
+                    <TextBlock Grid.Row="5" FontSize="21" VerticalAlignment="Bottom" Margin="0,10,2,10" HorizontalAlignment="Right">Publisher</TextBlock>
+                    <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,10" MaxHeight="50"
+                              Background="WhiteSmoke" FontSize="18" Text="{Binding Publisher.Name}" VerticalAlignment="Bottom"></TextBox>
+                    <Button Grid.Row="6" Grid.Column="1"  Grid.ColumnSpan="4" HorizontalAlignment="Center" MinWidth="200" Command="{Binding AddPublisherCommand}">Add</Button>
+
+
+
+                </Grid>
+            </TabItem>
+            <!--_________________________________________________RECORD_________________________________________-->
+            <TabItem>
+                <TabItem.Style>
+                    <Style BasedOn="{StaticResource MaterialDesignNavigationRailTabItem}" TargetType="TabItem">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CurrentAccount.IsClient}" Value="True">
+                                <Setter Property="IsSelected"  Value="True"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TabItem.Style>
+                <TabItem.Header>
+                    <materialDesign:PackIcon
+        Kind="MusicBoxOutline"
+        Width="30"
+        Height="30" />
+                </TabItem.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.3*"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+
+                        <RowDefinition></RowDefinition>
+
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+
+                    </Grid.RowDefinitions>
+                    <TextBlock  FontSize="25" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">Record</TextBlock>
+
+                    <TextBlock Grid.Row="1" FontSize="18" VerticalAlignment="Bottom" Margin="0,0,2,5" HorizontalAlignment="Right">Name:</TextBlock>
+                    <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,5" MinWidth="200" VerticalAlignment="Bottom" MaxHeight="35"
+                             Background="WhiteSmoke" FontSize="18" Text="{Binding SelectedRecord.Name}"></TextBox>
+
+
+                    <TextBlock Grid.Row="2" FontSize="18" VerticalAlignment="Bottom" Margin="0,0,2,5" HorizontalAlignment="Right">Artist:</TextBlock>
+                    <ComboBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,5" MinWidth="200" VerticalAlignment="Bottom" FontSize="18" MaxHeight="35" ItemsSource="{Binding Artists}" SelectedItem="{Binding SelectedRecord.Artist}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"></TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <TextBlock Grid.Row="3" FontSize="18" VerticalAlignment="Bottom" Margin="0,0,2,5" HorizontalAlignment="Right" >Publisher:</TextBlock>
+                    <ComboBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,5" MinWidth="200" VerticalAlignment="Bottom" MaxHeight="35" FontSize="18" ItemsSource="{Binding Publishers}" SelectedItem="{Binding SelectedRecord.Publisher}" >
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"></TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <TextBlock Grid.Row="4" FontSize="18" VerticalAlignment="Bottom" Margin="0,0,0,5" HorizontalAlignment="Right">Genre:</TextBlock>
+                    <ComboBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,5" FontSize="18" MinWidth="200" VerticalAlignment="Bottom" MaxHeight="35" ItemsSource="{Binding Genres}" SelectedItem="{Binding SelectedRecord.Genre}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Name}"></TextBlock>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+
+                    <TextBlock Grid.Row="5" FontSize="18" VerticalAlignment="Bottom" Margin="0,0,2,5" HorizontalAlignment="Right" >Date:</TextBlock>
+                    <DatePicker Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" FontSize="18" Margin="5,5" MinWidth="200" VerticalAlignment="Bottom" MaxHeight="35" SelectedDate="{Binding SelectedRecord.DateOfPublishing, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ></DatePicker>
+
+
+                    <TextBlock Grid.Row="6" FontSize="18" VerticalAlignment="Bottom" Margin="0,0,2,5"  HorizontalAlignment="Right">Songs:</TextBlock>
+                    <TextBox Grid.Row="6" MaxHeight="35" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,5" Background="WhiteSmoke" VerticalAlignment="Bottom" FontSize="18" Text="{Binding SelectedRecord.CountSongs}"></TextBox>
+
+                    <TextBlock Grid.Row="8" FontSize="18" VerticalAlignment="Bottom" Margin="0,0,2,5" HorizontalAlignment="Right" Text="Cost:">
+                         <TextBlock.Style >
+                            <Style TargetType="TextBlock">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CurrentAccount.IsClient}" Value="True">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding CurrentAccount.IsClient}" Value="False">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <TextBox Grid.Row="8" MaxHeight="35" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,5" Background="WhiteSmoke" VerticalAlignment="Bottom" FontSize="18" Text="{Binding SelectedRecord.CostPrice}">
+                        <TextBox.Style>
+                            <Style BasedOn="{StaticResource MaterialDesignTextBox}" TargetType="TextBox">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CurrentAccount.IsClient}" Value="True">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding CurrentAccount.IsClient}" Value="False">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+
+                    <TextBlock Grid.Row="7" FontSize="18" VerticalAlignment="Bottom" Margin="0,0,2,5" HorizontalAlignment="Right">Sells:</TextBlock>
+                    <TextBox Grid.Row="7" MaxHeight="35" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,5" Background="WhiteSmoke" VerticalAlignment="Bottom" FontSize="18" Text="{Binding SelectedRecord.SellingPrice}"></TextBox>
+
+                    <DockPanel Grid.Row="9" LastChildFill="False" Grid.ColumnSpan="4">
+                        <Button MinWidth="83" Margin="5,0" DockPanel.Dock="Left" Command="{Binding AddRecordCommand, UpdateSourceTrigger=PropertyChanged}" Content="Add" >
+                            <Button.Style>
+                                <Style BasedOn="{StaticResource MaterialDesignRaisedButton}" TargetType="Button">
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding CurrentAccount.IsClient}" Value="True">
+                                        <Setter Property="Visibility" Value="Collapsed"/>
+                                    </DataTrigger>
+                                    <DataTrigger Binding="{Binding CurrentAccount.IsClient}" Value="False">
+                                        <Setter Property="Visibility" Value="Visible"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                            </Button.Style>
+                        </Button>
+                        <Button MinWidth="83" Margin="3,0" DockPanel.Dock="Left" Command="{Binding EditRecordCommand,UpdateSourceTrigger=PropertyChanged}" Content="Edit">
+                            <Button.Style>
+                                <Style BasedOn="{StaticResource MaterialDesignRaisedButton}" TargetType="Button">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding CurrentAccount.IsClient}" Value="True">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding CurrentAccount.IsClient}" Value="False">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                        <Button MinWidth="83" Margin="3,0" DockPanel.Dock="Left" Command="{Binding RemoveRecordCommand,UpdateSourceTrigger=PropertyChanged}" Content="Remove">
+                            <Button.Style>
+                                <Style BasedOn="{StaticResource MaterialDesignRaisedButton}" TargetType="Button">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding CurrentAccount.IsClient}" Value="True">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                   
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding CurrentAccount.IsClient}" Value="False">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                        <Button MinWidth="83" Margin="5,0" DockPanel.Dock="Left" Command="{Binding DiscardRecordCommand}" Content="Discard">
+                            <Button.Style>
+                                <Style BasedOn="{StaticResource MaterialDesignRaisedButton}" TargetType="Button">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding CurrentAccount.IsClient}" Value="True">
+                                            <Setter Property="Visibility" Value="Collapsed"/>
+                                        </DataTrigger>
+                                        <DataTrigger Binding="{Binding CurrentAccount.IsClient}" Value="False">
+                                            <Setter Property="Visibility" Value="Visible"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Button.Style>
+                        </Button>
+                    </DockPanel>
+                </Grid>
+
+            </TabItem>
+            <!--_________________________________________________SELL/SETASIDE_________________________________________-->
+            <TabItem>
+                <TabItem.Style>
+                    <Style BasedOn="{StaticResource MaterialDesignNavigationRailTabItem}" TargetType="TabItem">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CurrentAccount.IsClient}" Value="True">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding CurrentAccount.IsClient}" Value="False">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TabItem.Style>
+                <TabItem.Header>
+                    <materialDesign:PackIcon
+        Kind="HandshakeOutline"
+        Width="30"
+        Height="30" />
+                </TabItem.Header>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.2*"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+
+                    </Grid.RowDefinitions>
+
+                    <TextBlock  FontSize="25" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">Sell/Set Aside</TextBlock>
+
+                    <TextBlock Grid.Row="1" FontSize="18"  VerticalAlignment="Bottom" Margin="0,10,2,10" HorizontalAlignment="Right">Client email:</TextBlock>
+                    <ComboBox MinWidth="250" FontSize="16" MaxHeight="35" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" VerticalAlignment="Bottom"  IsEditable="True" Margin="5,10" ItemsSource="{Binding Clients}" SelectedItem="{Binding Client}" Text="{Binding EmailClient}" DisplayMemberPath="Email">
+
+                    </ComboBox>
+
+                    <TextBlock Grid.Row="2" FontSize="18"  VerticalAlignment="Bottom" Margin="0,10,2,10" HorizontalAlignment="Right">Date:</TextBlock>
+                    <DatePicker MinWidth="250"  MaxHeight="35" Grid.Row="2" Grid.Column="1" Margin="5,10" VerticalAlignment="Bottom" Grid.ColumnSpan="3" FontSize="18" SelectedDate="{Binding Date, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></DatePicker>
+
+                    <TextBlock Grid.Row="3" FontSize="18"  VerticalAlignment="Bottom" Margin="0,10,2,10" HorizontalAlignment="Right">Discount:</TextBlock>
+                    <TextBox MinWidth="250" MaxHeight="35" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,10" VerticalAlignment="Bottom"
+                             Background="WhiteSmoke" FontSize="18" IsEnabled="False"  Text="{Binding Client.Discount}"></TextBox>
+
+                    <TextBlock Grid.Row="4" FontSize="18"  VerticalAlignment="Bottom" Margin="0,10,2,10" HorizontalAlignment="Right">Deal:</TextBlock>
+                    <TextBox MinWidth="250" MaxHeight="35" Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,10" VerticalAlignment="Bottom"
+                             Background="WhiteSmoke" FontSize="18" IsEnabled="False" Text="{Binding SelectedRecord.Deal.Discount}"></TextBox>
+
+                    <TextBlock Grid.Row="5" FontSize="18"  VerticalAlignment="Bottom" Margin="0,10,2,10" HorizontalAlignment="Right">Cost:</TextBlock>
+                    <TextBox MinWidth="250" MaxHeight="35" Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,10" VerticalAlignment="Bottom"
+                              Background="WhiteSmoke" FontSize="18" IsEnabled="False" Text="{Binding  SelectedRecord.CostPrice}"></TextBox>
+
+                    <TextBlock Grid.Row="6" FontSize="18" VerticalAlignment="Bottom" Margin="0,10,2,10" HorizontalAlignment="Right" >Sell:</TextBlock>
+                    <TextBox MinWidth="250" MaxHeight="35" Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,10" VerticalAlignment="Bottom"
+                             Background="WhiteSmoke" FontSize="18" IsEnabled="False" Text="{Binding SelectedRecord.SellingPrice}"></TextBox>
+
+                    <TextBlock Grid.Row="7" FontSize="18" VerticalAlignment="Bottom" Margin="0,10,2,10" HorizontalAlignment="Right" >Total:</TextBlock>
+                    <TextBox MinWidth="250" MaxHeight="35" Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,10" VerticalAlignment="Bottom"
+                             Background="WhiteSmoke" FontSize="18" IsEnabled="False" Text="{Binding Total, Mode=OneWay}"></TextBox>
+
+                    <DockPanel Grid.Row="8" Grid.ColumnSpan="4" LastChildFill="False">
+                        <Button MinWidth="100" DockPanel.Dock="Left" Margin="15,0,0,0" Command="{Binding SellRecordCommand,  UpdateSourceTrigger=PropertyChanged}">Sell</Button>
+                        <Button MinWidth="100" DockPanel.Dock="Right" Margin="0,0,15,0" Command="{Binding SetAsideCommand,  UpdateSourceTrigger=PropertyChanged}">Set Aside</Button>
+
+                    </DockPanel>
+                </Grid>
+            </TabItem>
+            <!--_________________________________________________DEAL_________________________________________-->
+            <TabItem>
+                <TabItem.Style>
+                    <Style BasedOn="{StaticResource MaterialDesignNavigationRailTabItem}" TargetType="TabItem">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CurrentAccount.IsClient}" Value="True">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding CurrentAccount.IsClient}" Value="False">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TabItem.Style>
+                <TabItem.Header>
+                    <materialDesign:PackIcon
+        Kind="TicketPercentOutline"
+        Width="30"
+        Height="30" />
+                </TabItem.Header>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.4*"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+
+
+
+                    </Grid.RowDefinitions>
+                    <TextBlock  FontSize="25" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">Deal</TextBlock>
+
+                    <TextBlock Grid.Row="1" FontSize="18"  VerticalAlignment="Bottom" Margin="0,10,2,10" HorizontalAlignment="Right">Name:</TextBlock>
+                    <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,10" FontSize="18" VerticalAlignment="Bottom" Text="{Binding Deal.Name}">
+
+                    </TextBox>
+
+                    <TextBlock Grid.Row="2" FontSize="18"  VerticalAlignment="Bottom" Margin="0,10,2,10" HorizontalAlignment="Right">Start:</TextBlock>
+                    <DatePicker Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" FontSize="18" Margin="5,10" VerticalAlignment="Bottom" SelectedDate="{Binding Deal.StartDate}"></DatePicker>
+
+
+                    <TextBlock Grid.Row="3" FontSize="18"  VerticalAlignment="Bottom" Margin="0,10,2,10" HorizontalAlignment="Right">End:</TextBlock>
+                    <DatePicker Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,10" FontSize="18" VerticalAlignment="Bottom" SelectedDate="{Binding Deal.EndDate}"></DatePicker>
+
+                    <TextBlock Grid.Row="4" FontSize="18"  VerticalAlignment="Bottom" Margin="0,10,2,10" HorizontalAlignment="Right">Discount:</TextBlock>
+                    <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,15
+                             " Background="WhiteSmoke" FontSize="17" Text="{Binding Deal.Discount}"></TextBox>
+
+                    <TextBlock Grid.Row="5" FontSize="18"  VerticalAlignment="Center" Grid.RowSpan="2" Margin="0,10,2,10"  HorizontalAlignment="Right">Description:</TextBlock>
+
+                    <TextBox Grid.Row="5" Grid.ColumnSpan="3" Grid.RowSpan="2" Grid.Column="1" 
+                     Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                     VerticalAlignment="Center"
+                     AcceptsReturn="True"
+                     MinHeight="100"
+                     TextWrapping="Wrap" 
+                      Margin="5,0"
+                     VerticalScrollBarVisibility="Auto"
+                     materialDesign:HintAssist.Hint="Text"  FontSize="16"   Text="{Binding Deal.Description}"                  
+                     ></TextBox>
+
+                    <DockPanel Grid.Row="7" Grid.ColumnSpan="4" LastChildFill="False">
+                        <Button MinWidth="110" DockPanel.Dock="Left" Margin="15,0,0,0" Command="{Binding CreateDealCommand}">Create</Button>
+                        <Button MinWidth="110" DockPanel.Dock="Right" Margin="0,0,15,0" Command="{Binding AddRecordToDealCommand}">Add record</Button>
+                    </DockPanel>
+                </Grid>
+
+            </TabItem>
+            <TabItem>
+                <TabItem.Style>
+                    <Style BasedOn="{StaticResource MaterialDesignNavigationRailTabItem}" TargetType="TabItem">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CurrentAccount.IsClient}" Value="False">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding CurrentAccount.IsClient}" Value="True">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TabItem.Style>
+                <TabItem.Header>
+                    <materialDesign:PackIcon
+        Kind="AccountOutline"
+        Width="30"
+        Height="30" />
+                </TabItem.Header>
+
+                <Grid IsEnabled="False">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1.4*"></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+
+
+
+                    </Grid.RowDefinitions>
+                    <TextBlock  FontSize="25" Grid.ColumnSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">Client</TextBlock>
+
+                    
+                    <TextBlock Grid.Row="1" FontSize="18"  VerticalAlignment="Bottom" Margin="0,10,2,10" HorizontalAlignment="Right">Name:</TextBlock>
+                    <TextBox Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,10" FontSize="18" VerticalAlignment="Bottom" Text="{Binding CurrentAccount.Client.Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+                    <TextBlock Grid.Row="2" FontSize="18"  VerticalAlignment="Bottom" Margin="0,10,2,10" HorizontalAlignment="Right">Surname:</TextBlock>
+                    <TextBox Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,10" FontSize="18" VerticalAlignment="Bottom" Text="{Binding CurrentAccount.Client.Surname}"></TextBox>
+
+                    <TextBlock Grid.Row="3" FontSize="18"  VerticalAlignment="Bottom" Margin="0,10,2,10" HorizontalAlignment="Right">Login:</TextBlock>
+                    <TextBox Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,10" FontSize="18" VerticalAlignment="Bottom" Text="{Binding CurrentAccount.Login}"></TextBox>
+
+                    <TextBlock Grid.Row="4" FontSize="18"  VerticalAlignment="Bottom" Margin="0,10,2,10" HorizontalAlignment="Right">Email:</TextBlock>
+                    <TextBox Grid.Row="4" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,10" FontSize="18" VerticalAlignment="Bottom" Text="{Binding CurrentAccount.Client.Email}"></TextBox>
+                    
+                    <TextBlock Grid.Row="5" FontSize="18"  VerticalAlignment="Bottom" Margin="0,10,2,10" HorizontalAlignment="Right">Phone:</TextBlock>
+                    <TextBox Grid.Row="5" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,10" FontSize="18" VerticalAlignment="Bottom" Text="{Binding CurrentAccount.Client.Phone}"></TextBox>
+
+                    <TextBlock Grid.Row="6" FontSize="18"  VerticalAlignment="Bottom" Margin="0,10,2,10" HorizontalAlignment="Right">Discount:</TextBlock>
+                    <TextBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,10" FontSize="18" VerticalAlignment="Bottom" Text="{Binding CurrentAccount.Client.Discount}"></TextBox>
+                </Grid>
+
+            </TabItem>
+        </TabControl>
+
+        <!--_________________________________________________RIGHT_________________________________________-->
+
+        <!--_________________________________________________RECORD_________________________________________-->
+        <TabControl Grid.Row="1" Grid.Column="1"  Margin="10,0,0,0"
+  Style="{StaticResource MaterialDesignNavigatilRailTabControl}"
+  materialDesign:ColorZoneAssist.Mode="PrimaryMid" TabStripPlacement="Right">
+            <TabItem
+    Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+                <TabItem.Header>
+                    <materialDesign:PackIcon
+        Kind="MusicNote"
+        Width="30"
+        Height="30" />
+                </TabItem.Header>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.11*"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+
+                    </Grid.RowDefinitions>
+
+                    <DockPanel LastChildFill="False">
+                        <ComboBox
+                                materialDesign:HintAssist.Hint="Search by" Margin="5,10" VerticalAlignment="Bottom" SelectedItem="{Binding SearchBy}" ItemsSource="{Binding SearchByList}">
+                        </ComboBox>
+                        <TextBox Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" Margin="5,10" Width="150" MaxHeight="35" VerticalAlignment="Bottom"
+                                 Background="WhiteSmoke" FontSize="17" Text="{Binding SearchLine, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+                        <Button Margin="0,10" Command="{Binding SearchCommand}">Search</Button>
+                    </DockPanel>
+                    <ListBox Grid.Row="1" Margin="5" ItemsSource="{Binding Records}" SelectedItem="{Binding SelectedRecord}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListBox.Style>
+                            <Style TargetType="ListBox">
+
+                                <Style.Triggers >
+                                    <DataTrigger Binding="{Binding ElementName=clearSelected, Path=IsPressed}" Value="true">
+                                        <Setter Property="SelectedIndex" Value="-1"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListBox.Style>
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel Orientation="Horizontal" Width="Auto">
+                                    <Border Width="140" Height="120" Background="#FF4CDA8E" >
+                                       
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock  Height="40" FontSize="16" Text="{Binding Name}" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                                            <Separator Width="120" Margin="5,0"></Separator>
+                                            <TextBlock Height="40" FontSize="15" Text="{Binding Artist.Name}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5"></TextBlock>
+                                            <Separator Width="130" Margin="5,0" VerticalAlignment="Bottom"></Separator>
+                                            <TextBlock Height="40" FontSize="15" Text="{Binding Genre.Name}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"></TextBlock>
+
+                                        </StackPanel>
+                                    </Border>
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+
+                </Grid>
+
+            </TabItem>
+            <!--_________________________________________________TOP_________________________________________-->
+            <TabItem
+    Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+                <TabItem.Header>
+                    <materialDesign:PackIcon
+        Kind="Star"
+        Width="30"
+        Height="30" />
+                </TabItem.Header>
+
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="0.1*"></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <DockPanel LastChildFill="False">
+                        <ComboBox
+                       materialDesign:HintAssist.Hint="Top for" Margin="5" HorizontalAlignment="Left" SelectedItem="{Binding TopFor}" ItemsSource="{Binding TopForTheList}">
+                        </ComboBox>
+                        <Button Width="70" Margin="10,5" Command="{Binding ShowCommand}">Show</Button>
+                    </DockPanel>
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Visible">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                                <RowDefinition Height="Auto"></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <!--New-->
+                            <DockPanel>
+                                <TextBlock DockPanel.Dock="Top" FontSize="18" Margin="5,5" TextDecorations="Underline">New records</TextBlock>
+                            <ListBox  Height="150" Margin="5,5" ItemsSource="{Binding NewRecords}" SelectedItem="{Binding SelectedRecord}">
+                                <ListBox.Style>
+                                    <Style TargetType="ListBox">
+
+                                        <Style.Triggers >
+                                            <DataTrigger Binding="{Binding ElementName=clearSelected, Path=IsPressed}" Value="true">
+                                                <Setter Property="SelectedIndex" Value="-1"></Setter>
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </ListBox.Style>
+                                <ListBox.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <WrapPanel Orientation="Horizontal" />
+                                    </ItemsPanelTemplate>
+                                </ListBox.ItemsPanel>
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <WrapPanel Orientation="Horizontal" Width="Auto">
+                                            <Border Width="140" Height="120" Background="#FF4CDA8E" >
+
+                                                <StackPanel Orientation="Vertical">
+                                                    <TextBlock  Height="40" FontSize="16" Text="{Binding Name}" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                                                    <Separator Width="120" Margin="5,0"></Separator>
+                                                    <TextBlock Height="40" FontSize="15" Text="{Binding Artist.Name}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5"></TextBlock>
+                                                    <Separator Width="130" Margin="5,0" VerticalAlignment="Bottom"></Separator>
+                                                    <TextBlock Height="40" FontSize="15" Text="{Binding Genre.Name}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"></TextBlock>
+
+                                                </StackPanel>
+                                            </Border>
+                                        </WrapPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            </DockPanel>
+                            <!--Sales-->
+                            <DockPanel Grid.Row="1">
+                                <TextBlock DockPanel.Dock="Top" FontSize="18" Margin="5,5" TextDecorations="Underline">Top sales</TextBlock>
+                                <ListBox  Height="160" Margin="5,5" ItemsSource="{Binding TopSellingdRecords}" SelectedItem="{Binding SelectedRecord}">
+                                    <ListBox.Style>
+                                        <Style TargetType="ListBox">
+
+                                            <Style.Triggers >
+                                                <DataTrigger Binding="{Binding ElementName=clearSelected, Path=IsPressed}" Value="true">
+                                                    <Setter Property="SelectedIndex" Value="-1"></Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ListBox.Style>
+                                    <ListBox.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal" />
+                                        </ItemsPanelTemplate>
+                                    </ListBox.ItemsPanel>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <WrapPanel Orientation="Horizontal" Width="Auto">
+                                                <Border Width="140" Height="120" Background="#FF4CDA8E" >
+
+                                                    <StackPanel Orientation="Vertical">
+                                                        <TextBlock  Height="40" FontSize="16" Text="{Binding Name}" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                                                        <Separator Width="120" Margin="5,0"></Separator>
+                                                        <TextBlock Height="40" FontSize="15" Text="{Binding Artist.Name}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5"></TextBlock>
+                                                        <Separator Width="130" Margin="5,0" VerticalAlignment="Bottom"></Separator>
+                                                        <TextBlock Height="40" FontSize="15" Text="{Binding Genre.Name}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"></TextBlock>
+
+                                                    </StackPanel>
+                                                </Border>
+                                            </WrapPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </DockPanel>
+                            <!--Artist-->
+                            <DockPanel Grid.Row="2">
+                                <TextBlock DockPanel.Dock="Top" FontSize="18" Margin="5,5" TextDecorations="Underline">Top artists</TextBlock>
+                                <ListBox  Height="70" Margin="5,5" ItemsSource="{Binding TopArtists}">
+                                    <ListBox.Style>
+                                        <Style TargetType="ListBox">
+
+                                            <Style.Triggers >
+                                                <DataTrigger Binding="{Binding ElementName=clearSelected, Path=IsPressed}" Value="true">
+                                                    <Setter Property="SelectedIndex" Value="-1"></Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ListBox.Style>
+                                    <ListBox.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal" />
+                                        </ItemsPanelTemplate>
+                                    </ListBox.ItemsPanel>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <WrapPanel Orientation="Horizontal" Width="Auto">
+                                                <Border Width="70" Height="50" BorderBrush="#FF4CDA8E" BorderThickness="1" >
+                                                    <StackPanel Orientation="Vertical">
+                                                        <TextBlock  Height="40" Text="{Binding Name}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Margin="0,8,0,10"></TextBlock>
+                                                    </StackPanel>
+                                                </Border>
+                                            </WrapPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </DockPanel>
+                            <!--Genre-->
+                            <DockPanel Grid.Row="3">
+                                <TextBlock DockPanel.Dock="Top" FontSize="18" Margin="5,5" TextDecorations="Underline">Top genres</TextBlock>
+                                <ListBox  Height="70" Margin="5,5" ItemsSource="{Binding TopGenres}">
+                                    <ListBox.Style>
+                                        <Style TargetType="ListBox">
+
+                                            <Style.Triggers >
+                                                <DataTrigger Binding="{Binding ElementName=clearSelected, Path=IsPressed}" Value="true">
+                                                    <Setter Property="SelectedIndex" Value="-1"></Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </ListBox.Style>
+                                    <ListBox.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapPanel Orientation="Horizontal" />
+                                        </ItemsPanelTemplate>
+                                    </ListBox.ItemsPanel>
+                                    <ListBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <WrapPanel Orientation="Horizontal" Width="Auto">
+                                                <Border Width="70" Height="50" BorderBrush="#FF4CDA8E" BorderThickness="1" >
+                                                    <StackPanel Orientation="Vertical">
+                                                        <TextBlock  Height="40" Text="{Binding Name}" HorizontalAlignment="Center" VerticalAlignment="Center" TextWrapping="Wrap" Margin="0,8"></TextBlock>
+                                                    </StackPanel>
+                                                </Border>
+                                            </WrapPanel>
+                                        </DataTemplate>
+                                    </ListBox.ItemTemplate>
+                                </ListBox>
+                            </DockPanel>
+                        </Grid>
+                    </ScrollViewer>
+                </Grid>
+            </TabItem>
+
+            <!--_________________________________________________DEAL_________________________________________-->
+            <TabItem
+    Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+                <TabItem.Header>
+                    <materialDesign:PackIcon
+        Kind="Sale"
+        Width="30"
+        Height="30" />
+                </TabItem.Header>
+                <Grid>
+                    <ListBox ItemsSource="{Binding Deals}" SelectedItem="{Binding Deal}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+                        <ListBox.Style>
+                            <Style TargetType="ListBox">
+
+                                <Style.Triggers >
+                                    <DataTrigger Binding="{Binding ElementName=clearSelected, Path=IsPressed}" Value="true">
+                                        <Setter Property="SelectedIndex" Value="-1"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListBox.Style>
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel Orientation="Horizontal" Width="Auto">
+                                    <Border Width="250" Height="120" Background="#FF4CDA8E" >
+
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock  Height="30" FontSize="20" Text="{Binding Name}" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                                            <Separator Width="220" Margin="5,0"></Separator>
+                                            <TextBlock Height="150" FontSize="15" Text="{Binding Description}" HorizontalAlignment="Center" TextWrapping="Wrap" VerticalAlignment="Center" Margin="0,5"></TextBlock>
+                                            
+
+                                        </StackPanel>
+                                    </Border>
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </TabItem>
+            <!--_________________________________________________REMOVED RECORDS_________________________________________-->
+            <TabItem>
+                <TabItem.Style>
+                    <Style BasedOn="{StaticResource MaterialDesignNavigationRailTabItem}" TargetType="TabItem">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CurrentAccount.IsClient}" Value="True">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding CurrentAccount.IsClient}" Value="False">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </TabItem.Style>
+                
+                <TabItem.Header>
+                    <materialDesign:PackIcon
+        Kind="MusicNoteOff"
+        Width="24"
+        Height="24" />
+                    
+                </TabItem.Header>
+                <Grid>
+                    <ListBox ItemsSource="{Binding RemovedRecords}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListBox.Style>
+                            <Style TargetType="ListBox">
+
+                                <Style.Triggers >
+                                    <DataTrigger Binding="{Binding ElementName=clearSelected, Path=IsPressed}" Value="true">
+                                        <Setter Property="SelectedIndex" Value="-1"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListBox.Style>
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel Orientation="Horizontal" Width="Auto">
+                                    <Border Width="140" Height="120" Background="#FF4CDA8E" >
+
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock  Height="40" FontSize="16" Text="{Binding Name}" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                                            <Separator Width="120" Margin="5,0"></Separator>
+                                            <TextBlock Height="40" FontSize="15" Text="{Binding Artist.Name}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5"></TextBlock>
+                                            <Separator Width="130" Margin="5,0" VerticalAlignment="Bottom"></Separator>
+                                            <TextBlock Height="40" FontSize="15" Text="{Binding Genre.Name}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"></TextBlock>
+
+                                        </StackPanel>
+                                    </Border>
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </TabItem>
+            <!--_________________________________________________SALES HISTORY_________________________________________-->
+            <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+                <TabItem.Header>
+                    <materialDesign:PackIcon
+        Kind="Cash"
+        Width="30"
+        Height="30" />
+                </TabItem.Header>
+                <Grid>
+                    <ListBox ItemsSource="{Binding SalesHistories}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListBox.Style>
+                            <Style TargetType="ListBox">
+
+                                <Style.Triggers >
+                                    <DataTrigger Binding="{Binding ElementName=clearSelected, Path=IsPressed}" Value="true">
+                                        <Setter Property="SelectedIndex" Value="-1"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListBox.Style>
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel Orientation="Horizontal" Width="Auto">
+                                    <Border Width="140" Height="220" Background="#FF4CDA8E">
+                                        
+                                            
+
+                                                <StackPanel Orientation="Vertical">
+                                                    <TextBlock  Height="40" FontSize="16" Text="{Binding Record.Name}" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                                                    <Separator Width="120" Margin="5,0"></Separator>
+                                                    <TextBlock Height="30" FontSize="15" Text="{Binding Record.Artist.Name}" HorizontalAlignment="Center" VerticalAlignment="Top" ></TextBlock>
+                                                    <Separator Width="130" Margin="5,0" VerticalAlignment="Top"></Separator>
+                                                    <TextBlock Height="50" FontSize="15" Text="{Binding ClientEmail}" HorizontalAlignment="Center" VerticalAlignment="Top"  TextWrapping="Wrap"></TextBlock>
+                                                    <Separator Width="130" Margin="5,0" VerticalAlignment="Top"></Separator>
+                                                     <TextBlock Height="30" FontSize="15" Text="{Binding  DiscountPrice}" HorizontalAlignment="Center" VerticalAlignment="Top"  TextWrapping="Wrap"></TextBlock>
+                                                    <Separator Width="130"  VerticalAlignment="Top"></Separator>
+
+                                                    <TextBlock Height="50" FontSize="15" Text="{Binding Date}" HorizontalAlignment="Center" VerticalAlignment="Top"  TextWrapping="Wrap"></TextBlock>
+
+                                               
+                                            </StackPanel>
+                                            </Border>
+                                        
+                                        <!--<StackPanel Orientation="Vertical">
+                                            <TextBlock  Height="40" Text="{Binding ClientEmail}" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                                            <TextBlock  Height="40" Text="{Binding Record.Name}" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                                            <TextBlock Height="40" Text="{Binding Record.Artist.Name}" HorizontalAlignment="Center"></TextBlock>
+                                            <TextBlock Height="40" Text="{Binding Record.Genre.Name}" HorizontalAlignment="Center"></TextBlock>-->
+
+                                        <!--</StackPanel>-->
+                                   
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+            </TabItem>
+            <!--_________________________________________________DISCARDED RECORDS_________________________________________-->
+            <TabItem >
+                <TabItem.Style>
+                    <Style BasedOn="{StaticResource MaterialDesignNavigationRailTabItem}" TargetType="TabItem">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding CurrentAccount.IsClient}" Value="True">
+                                <Setter Property="Visibility" Value="Collapsed"/>
+                            </DataTrigger>
+                            <DataTrigger Binding="{Binding CurrentAccount.IsClient}" Value="False">
+                                <Setter Property="Visibility" Value="Visible"/>
+                            </DataTrigger>
+                            
+                        </Style.Triggers>
+                    </Style>
+                </TabItem.Style>
+                <TabItem.Header>
+                    <materialDesign:PackIcon
+        Kind="CashRemove"
+        Width="30"
+        Height="30" />
+                </TabItem.Header>
+
+                <Grid>
+                    <ListBox ItemsSource="{Binding DiscardedRecords}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListBox.Style>
+                            <Style TargetType="ListBox">
+
+                                <Style.Triggers >
+                                    <DataTrigger Binding="{Binding ElementName=clearSelected, Path=IsPressed}" Value="true">
+                                        <Setter Property="SelectedIndex" Value="-1"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListBox.Style>
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel Orientation="Horizontal" Width="Auto">
+                                    <Border Width="140" Height="120" Background="#FF4CDA8E" >
+
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock  Height="40" FontSize="16" Text="{Binding Name}" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                                            <Separator Width="120" Margin="5,0"></Separator>
+                                            <TextBlock Height="40" FontSize="15" Text="{Binding Artist.Name}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,5"></TextBlock>
+                                            <Separator Width="130" Margin="5,0" VerticalAlignment="Bottom"></Separator>
+                                            <TextBlock Height="40" FontSize="15" Text="{Binding Genre.Name}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,10"></TextBlock>
+
+                                        </StackPanel>
+                                    </Border>
+                                </WrapPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+
+            </TabItem>
+            <TabItem Style="{StaticResource MaterialDesignNavigationRailTabItem}">
+
+                <TabItem.Header>
+                    <materialDesign:PackIcon
+        Kind="AccountMusic"
+        Width="30"
+        Height="30" />
+                </TabItem.Header>
+
+                <Grid>
+                    <ListBox ItemsSource="{Binding SetAsideRecords}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                        <ListBox.Style>
+                            <Style TargetType="ListBox">
+
+                                <Style.Triggers >
+                                    <DataTrigger Binding="{Binding ElementName=clearSelected, Path=IsPressed}" Value="true">
+                                        <Setter Property="SelectedIndex" Value="-1"></Setter>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </ListBox.Style>
+                        <ListBox.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ListBox.ItemsPanel>
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <WrapPanel Orientation="Horizontal" Width="Auto">
+                                    <Border Width="140" Height="130" Background="#FF4CDA8E" >
+
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock  Height="40" FontSize="16" Text="{Binding Record.Name}" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                                            <Separator Width="120" Margin="5,0"></Separator>
+                                            <TextBlock Height="40" FontSize="15" Text="{Binding Client.Email}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" TextWrapping="Wrap"></TextBlock>
+                                            <Separator Width="130" Margin="5,0" VerticalAlignment="Bottom"></Separator>
+                                            <TextBlock Height="40" FontSize="15" Text="{Binding DateTo}" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,5" TextWrapping="Wrap"></TextBlock>
+
+                                        </StackPanel>
+                                    </Border>
+                                </WrapPanel>
+                                <!--<WrapPanel Orientation="Horizontal" Width="Auto">
+                                    <Border Width="140" Height="140" >
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock  Height="40" Text="{Binding Record.Name}" HorizontalAlignment="Center" TextWrapping="Wrap"></TextBlock>
+                                            <TextBlock Height="40" Text="{Binding Client.Email}" HorizontalAlignment="Center"></TextBlock>
+                                            <TextBlock Height="40" Text="{Binding DateTo}" HorizontalAlignment="Center"></TextBlock>
+
+                                        </StackPanel>
+                                    </Border>
+                                </WrapPanel>-->
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Grid>
+
+            </TabItem>
+        </TabControl>
+
+    </Grid>
+
+</Window>
